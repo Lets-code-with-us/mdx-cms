@@ -9,7 +9,6 @@ export const POST = async(request: NextRequest) => {
         { status: 404 }
       );
     }
-    
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Server Error" }, { status: 200 });
