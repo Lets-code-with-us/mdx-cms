@@ -1,8 +1,11 @@
-# lets code
-
-
+# MDX CMS
 
 An open-source MDX CMS for building modern content websites, blogs, and documentation portals.
+
+
+![Screenshot from 2025-05-03 23-45-42](https://github.com/user-attachments/assets/7565a53d-9b83-42d7-84ba-614884bd9bc0)
+
+
 
 ## 🚀 Features
 
