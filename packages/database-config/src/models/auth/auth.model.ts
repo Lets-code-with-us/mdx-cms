@@ -1,5 +1,6 @@
 import { Auth } from "../../schemas/auth.schema.js";
-import bcrypt from "bcryptjs";
+import { hashedPassword, checkPassword } from "../../utils/hashingPassword.js";
+import { genrateJWTToken } from "../../utils/jwtTokengenerater.js";
 
 export class AuthModel {
   static async createNewUser(
@@ -18,11 +19,17 @@ export class AuthModel {
         };
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedpassword = await hashedPassword(password);
+      if (hashedpassword.code === 500) {
+        return {
+          code: hashedpassword.code,
+          message: hashedpassword.message,
+        };
+      }
 
       const createUser = new Auth({
         email,
-        password: hashedPassword,
+        password: hashedpassword.payload,
         organization,
       });
 
@@ -39,16 +46,63 @@ export class AuthModel {
     }
   }
 
-  static async signinUser(email:string,password:string){
+  static async signinUser(email: string, password: string, jwtSecret: string) {
     try {
-        
+      const checkUserExist = await (Auth as any).find({
+        email: email,
+      });
+
+      if (!checkUserExist) {
+        return {
+          code: 404,
+          message: "User not found",
+        };
+      }
+
+      const checkpassword = await checkPassword(
+        password,
+        checkUserExist.password
+      );
+
+      if (checkpassword.code == 500) {
+        return {
+          code: checkpassword.code,
+          message: checkpassword.message,
+        };
+      }
+
+      if (!checkpassword.payload) {
+        return {
+          code: 402,
+          message: "Invalid Password",
+        };
+      }
+
+      const authToken = await genrateJWTToken(
+        {
+          id: checkUserExist._id,
+          role: checkUserExist.role,
+        },
+        jwtSecret,
+        "12hr"
+      );
+
+      if (authToken.code === 500) {
+        return {
+          code: authToken.code,
+          message: authToken.message,
+        };
+      }
+
+      return {
+        code: authToken.code,
+        message: authToken.payload,
+      };
     } catch (error) {
-        return{
-            code:500,
-            message:error
-        }
+      return {
+        code: 500,
+        message: error,
+      };
     }
   }
-
-
 }

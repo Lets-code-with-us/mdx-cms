@@ -5,14 +5,16 @@
   "main": "./dist/index.js",
   "exports": {
     "./db-config": "./src/index.ts",
-    "./models/auth":"./src/models/auth/auth.model.ts"
+    "./models/auth": "./src/models/auth/auth.model.ts",
+    "./models/content":"./src/models/content/content.model.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.9"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
   "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.1"
   }
 }

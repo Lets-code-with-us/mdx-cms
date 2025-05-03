@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AuthModel } from "@repo/database-config/models/auth";
+import { ContentModel } from "@repo/database-config/models/content";
 import { DB_CONNECTION } from "@repo/database-config/db-config";
 
 // creating new user
 
-DB_CONNECTION("");
+DB_CONNECTION(process.env.DB_URI! as string);
 export const POST = async (request: NextRequest) => {
   try {
     const data = await request.json();
@@ -15,10 +15,12 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const res = await AuthModel.createNewUser(
-      "email",
-      "password",
-      "organization"
+    const res = await ContentModel.createContent(
+      data.title,
+      data.slug,
+      data.content,
+      data.category,
+      data.published
     );
 
     switch (res.code) {
@@ -30,12 +32,6 @@ export const POST = async (request: NextRequest) => {
 
       case 409:
         return NextResponse.json({ mesage: res.message }, { status: res.code });
-
-      case 403:
-        return NextResponse.json(
-          { message: res.message },
-          { status: res.code }
-        );
 
       default:
         return NextResponse.json(
