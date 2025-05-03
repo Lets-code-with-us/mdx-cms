@@ -1,84 +1,141 @@
-# Turborepo starter
+# lets code
 
-This Turborepo starter is maintained by the Turborepo core team.
 
-## Using this example
 
-Run the following command:
+An open-source MDX CMS for building modern content websites, blogs, and documentation portals.
 
-```sh
-npx create-turbo@latest
-```
+## 🚀 Features
 
-## What's inside?
+- **Fully customizable MDX content system**
+- **Next.js-powered frontend and backend**
+- **MongoDB database integration**
+- **Turborepo monorepo setup for optimal development**
+- **Astro-powered documentation**
+- **Easy to extend and customize**
+- **Content API for headless use cases**
+- **SEO optimized out of the box**
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 📦 Monorepo Structure
 
 ```
-cd my-turborepo
-pnpm build
+lets-code/
+├── apps/
+│   ├── web/             # Next.js main application
+│   ├── docs/            # Astro documentation site
+│     
+├── packages/
+│   ├── database-config  # Database config 
+│   ├── types-config     # Types config
+│   ├── eslint-config    # Eslint config
+│   └── config/          # Shared configuration
 ```
 
-### Develop
+## 🛠️ Tech Stack
 
-To develop all apps and packages, run the following command:
+- **Frontend**: Next.js, React
+- **Backend**: Next.js API routes
+- **Database**: MongoDB
+- **Documentation**: Astro
+- **Build System**: Turborepo
+- **Content**: MDX
+- **Styling**: Tailwind CSS
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.0.0 or later
+- pnpm v8 or later
+- MongoDB (local or Atlas)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/lets-code.git
+cd lets-code
 ```
-cd my-turborepo
+
+2. Install dependencies:
+
+```bash
+pnpm install
+```
+
+3. Set up environment variables:
+
+Copy the example environment files and adjust them to your needs:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+cp apps/admin/.env.example apps/admin/.env.local
+```
+
+4. Start the development server:
+
+```bash
 pnpm dev
 ```
 
-### Remote Caching
+This will start all applications in development mode using Turborepo.
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## 📝 Usage
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Creating Content
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+1. Navigate to the admin dashboard at `http://localhost:3001`
+2. Log in with your credentials
+3. Create a new page or post using the MDX editor
+4. Publish your content
+
+### Customizing Templates
+
+1. Navigate to `apps/web/src/templates`
+2. Modify existing templates or create new ones
+3. Apply templates to your content in the admin dashboard
+
+### Building Your Own Site
+
+1. Copy the `examples/blog-starter` directory
+2. Customize the configuration in `site.config.js`
+3. Add your own components and styles
+4. Deploy to your hosting provider of choice
+
+
+
+## 📚 Documentation
+
+For full documentation, visit the docs site at:
 
 ```
-cd my-turborepo
-npx turbo login
+http://localhost:4172
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Or check the `docs` directory for markdown documentation.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## 🤝 Contributing
 
-```
-npx turbo link
-```
+We welcome contributions to lets code! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-## Useful Links
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-Learn more about the power of Turborepo:
+## 📄 License
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🌟 Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [MDX](https://mdxjs.com/)
+- [Turborepo](https://turbo.build/)
+- [Astro](https://astro.build/)
+
+---
+
+Built with ❤️ by the lets code team
