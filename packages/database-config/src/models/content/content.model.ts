@@ -71,7 +71,12 @@ export class ContentModel {
         code: 200,
         message: "Updated",
       };
-    } catch (error) {}
+    } catch (error) {
+      return {
+        code: 500,
+        message: error,
+      };
+    }
   }
 
   static async deleteContent(id: string) {
@@ -107,11 +112,18 @@ export class ContentModel {
           message: "Not Found",
         };
       }
-      const isContentPublished = content.published === true;
-      return {
-        code: 200,
-        message: isContentPublished,
-      };
+      if (content.published === true) {
+        return {
+          code: 200,
+          message: content,
+        };
+      }
+      else{
+        return{
+          code:402,
+          message:"Unpublished"
+        }
+      }
     } catch (error) {
       return {
         code: 500,
@@ -120,8 +132,42 @@ export class ContentModel {
     }
   }
 
-  static async getContents(query: string) {
+  static async getContents(type: string, query: string) {
     try {
+      if (type === "all") {
+        const content = await (Content as any).find({
+          published: true,
+        });
+        if (!content) {
+          return {
+            code: 404,
+            message: "No Content",
+          };
+        }
+        return {
+          code: 200,
+          message: content,
+        };
+      }
+
+      if (type === "category") {
+        const content = await (Content as any).find({
+          category: query,
+          published: true,
+        });
+
+        if (!content) {
+          return {
+            code: 404,
+            message: "No Content",
+          };
+        }
+        return {
+          code: 200,
+          message: content,
+        };
+      }
+
       const content = await (Content as any).find({
         category: query,
         published: true,
