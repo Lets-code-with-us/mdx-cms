@@ -18,76 +18,25 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  MoreHorizontal,
-  Edit,
-  Trash,
-  Eye,
-  Search,
-  Plus,
-  SortAsc,
-} from "lucide-react";
+import { MoreHorizontal, Edit, Trash, Eye, Search, Plus } from "lucide-react";
+import { useFetch } from "@/hooks/useFetch";
+import Loading from "@/components/ui/loading";
+import Error from "@/components/ui/error";
+import Link from "next/link";
 
 export default function ContentTable() {
-  // Example data - in a real app, this would come from an API
-  const [content, setContent] = useState([
-    {
-      id: "1",
-      title: "Getting Started with Next.js",
-      slug: "getting-started-with-nextjs",
-      published: true,
-      createdAt: "2025-04-28T10:00:00Z",
-    },
-    {
-      id: "2",
-      title: "Understanding React Hooks",
-      slug: "understanding-react-hooks",
-      published: true,
-      createdAt: "2025-04-25T14:30:00Z",
-    },
-    {
-      id: "3",
-      title: "Building a Beautiful UI with Tailwind",
-      slug: "building-beautiful-ui-with-tailwind",
-      published: false,
-      createdAt: "2025-04-22T09:15:00Z",
-    },
-    {
-      id: "4",
-      title: "Advanced TypeScript Patterns",
-      slug: "advanced-typescript-patterns",
-      published: false,
-      createdAt: "2025-04-20T16:45:00Z",
-    },
-    {
-      id: "5",
-      title: "Server Components in Next.js",
-      slug: "server-components-nextjs",
-      published: true,
-      createdAt: "2025-04-18T11:20:00Z",
-    },
-  ]);
-
+  const { data, error, loading } = useFetch("/api/v1/posts/posts");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Toggle publish status
-  const togglePublish = (id:string) => {
-    setContent(
-      content.map((item) =>
-        item.id === id ? { ...item, published: !item.published } : item
-      )
-    );
-  };
-
   // Filter content based on search term
-  const filteredContent = content.filter(
+  const filteredContent = data.filter(
     (item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.slug.toLowerCase().includes(searchTerm.toLowerCase())
+      item?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item?.slug.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Format date for display
-  const formatDate = (dateString:string) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
@@ -96,6 +45,22 @@ export default function ContentTable() {
     }).format(date);
   };
 
+  if (error) {
+    return (
+      <div className="w-full">
+        <Error />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="w-full">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full space-y-4 p-10">
       <div className="flex justify-between items-center">
@@ -103,7 +68,7 @@ export default function ContentTable() {
           Content Management
         </h2>
         <Button className="bg-blue-500 hover:bg-blue-600">
-          <Plus className="mr-2 h-4 w-4" /> Add New
+          <Plus className="mr-2 h-4 w-4" /> Add New Category
         </Button>
       </div>
 
@@ -117,10 +82,6 @@ export default function ContentTable() {
             className="pl-9 h-10"
           />
         </div>
-        <Button variant="outline" className="h-10">
-          <SortAsc className="mr-2 h-4 w-4" />
-          Sort
-        </Button>
       </div>
 
       <div className="rounded-md border shadow-sm overflow-hidden">
@@ -159,19 +120,6 @@ export default function ContentTable() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => togglePublish(item.id)}
-                        className={
-                          item.published
-                            ? "border-orange-200 text-orange-700 hover:bg-orange-50"
-                            : "border-green-200 text-green-700 hover:bg-green-50"
-                        }
-                      >
-                        {item.published ? "Unpublish" : "Publish"}
-                      </Button>
-
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
@@ -184,12 +132,16 @@ export default function ContentTable() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-36">
-                          <DropdownMenuItem className="cursor-pointer flex items-center">
-                            <Eye className="mr-2 h-4 w-4" /> View
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer flex items-center">
-                            <Edit className="mr-2 h-4 w-4" /> Edit
-                          </DropdownMenuItem>
+                          <Link href={`/viewcontent/${item._id}`}>
+                            <DropdownMenuItem className="cursor-pointer flex items-center">
+                              <Eye className="mr-2 h-4 w-4" /> View
+                            </DropdownMenuItem>
+                          </Link>
+                          <Link href={`/updatecontent/${item._id}`}>
+                            <DropdownMenuItem className="cursor-pointer flex items-center">
+                              <Edit className="mr-2 h-4 w-4" /> Edit
+                            </DropdownMenuItem>
+                          </Link>
                           <DropdownMenuItem className="cursor-pointer flex items-center text-red-600 focus:text-red-600">
                             <Trash className="mr-2 h-4 w-4" /> Delete
                           </DropdownMenuItem>
@@ -212,7 +164,7 @@ export default function ContentTable() {
 
       <div className="flex items-center justify-between text-sm text-gray-500">
         <div>
-          Showing {filteredContent.length} of {content.length} entries
+          Showing {filteredContent.length} of {data.length} entries
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" disabled>
