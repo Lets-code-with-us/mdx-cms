@@ -6,7 +6,5 @@ DB_CONNECTION(process.env.DB_URI!);
 export const POST = (request: NextRequest) => {
   try {
     const data = request.json();
-
-    
   } catch (error) {}
 };

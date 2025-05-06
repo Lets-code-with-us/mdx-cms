@@ -2,10 +2,7 @@
 
 An open-source MDX CMS for building modern content websites, blogs, and documentation portals.
 
-
 ![Screenshot from 2025-05-03 23-45-42](https://github.com/user-attachments/assets/7565a53d-9b83-42d7-84ba-614884bd9bc0)
-
-
 
 ## 🚀 Features
 
@@ -25,9 +22,9 @@ lets-code/
 ├── apps/
 │   ├── web/             # Next.js main application
 │   ├── docs/            # Astro documentation site
-│     
+│
 ├── packages/
-│   ├── database-config  # Database config 
+│   ├── database-config  # Database config
 │   ├── types-config     # Types config
 │   ├── eslint-config    # Eslint config
 │   └── config/          # Shared configuration
@@ -104,8 +101,6 @@ This will start all applications in development mode using Turborepo.
 2. Customize the configuration in `site.config.js`
 3. Add your own components and styles
 4. Deploy to your hosting provider of choice
-
-
 
 ## 📚 Documentation
 

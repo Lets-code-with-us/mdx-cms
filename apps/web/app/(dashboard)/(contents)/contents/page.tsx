@@ -32,7 +32,7 @@ export default function ContentTable() {
   const filteredContent = data.filter(
     (item) =>
       item?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item?.slug.toLowerCase().includes(searchTerm.toLowerCase())
+      item?.slug.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Format date for display

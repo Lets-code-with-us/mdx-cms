@@ -10,7 +10,7 @@ export const useFetch = (url: string) => {
   });
 
   async function fetchingInfo() {
-    setInfo(prev => ({ ...prev, loading: true })); // Set loading at start
+    setInfo((prev) => ({ ...prev, loading: true })); // Set loading at start
     try {
       const response = await axios.get(url);
       const result = response?.data?.message?.message;

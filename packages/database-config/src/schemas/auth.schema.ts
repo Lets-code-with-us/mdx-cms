@@ -20,7 +20,7 @@ const AuthSchema = new mongoose.Schema(
       default: "admin",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Auth = mongoose.models.Auth || mongoose.model("Auth", AuthSchema);

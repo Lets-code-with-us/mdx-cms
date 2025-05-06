@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema(
       type: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Category =

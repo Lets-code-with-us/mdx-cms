@@ -32,7 +32,7 @@ export default function MDXEditor() {
     category: "blogs",
   });
 
-  const handleChange = (e:React.FormEventHandler) => {
+  const handleChange = (e: React.FormEventHandler) => {
     const { name, value } = e.target;
     setContent((prev) => ({
       ...prev,
@@ -40,7 +40,7 @@ export default function MDXEditor() {
     }));
   };
 
-  const handleSubmit = (e:React.ReactEventHandler) => {
+  const handleSubmit = (e: React.ReactEventHandler) => {
     e.preventDefault();
     console.log("Content submitted:", content);
     // Add your save logic here
@@ -59,11 +59,14 @@ export default function MDXEditor() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-sm font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="title"
+                  className="text-sm font-medium flex items-center gap-2"
+                >
                   <FileText className="h-4 w-4 text-gray-500" />
                   Title
                 </Label>
-                <Input 
+                <Input
                   id="title"
                   name="title"
                   value={content.title}
@@ -75,11 +78,14 @@ export default function MDXEditor() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="slug" className="text-sm font-medium flex items-center gap-2">
+                <Label
+                  htmlFor="slug"
+                  className="text-sm font-medium flex items-center gap-2"
+                >
                   <FileText className="h-4 w-4 text-gray-500" />
                   Slug
                 </Label>
-                <Input 
+                <Input
                   id="slug"
                   name="slug"
                   value={content.slug}
@@ -92,11 +98,14 @@ export default function MDXEditor() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category" className="text-sm font-medium flex items-center gap-2">
+              <Label
+                htmlFor="category"
+                className="text-sm font-medium flex items-center gap-2"
+              >
                 <Tag className="h-4 w-4 text-gray-500" />
                 Category
               </Label>
-              <select 
+              <select
                 id="category"
                 name="category"
                 value={content.category}
@@ -115,19 +124,23 @@ export default function MDXEditor() {
                 Content
               </Label>
               <div className="border border-gray-200 rounded-lg overflow-hidden min-h-[400px]">
-                <Suspense fallback={
-                  <div className="h-[400px] flex items-center justify-center bg-gray-50">
-                    <div className="animate-pulse text-gray-400">Loading editor...</div>
-                  </div>
-                }>
+                <Suspense
+                  fallback={
+                    <div className="h-[400px] flex items-center justify-center bg-gray-50">
+                      <div className="animate-pulse text-gray-400">
+                        Loading editor...
+                      </div>
+                    </div>
+                  }
+                >
                   <EditorComp markdown={markdown} />
                 </Suspense>
               </div>
             </div>
 
             <div className="flex justify-end">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="bg-blue-500 hover:bg-blue-600 gap-2 text-white px-4 py-2 rounded-md"
               >
                 <Save className="h-4 w-4" />

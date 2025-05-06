@@ -11,17 +11,17 @@ export const POST = async (request: NextRequest) => {
     if (!data) {
       return NextResponse.json(
         { message: "Empty request body" },
-        { status: 402 }
+        { status: 402 },
       );
     }
 
-    const res = await ContentModel.deleteContent(data.id)
+    const res = await ContentModel.deleteContent(data.id);
 
     switch (res.code) {
       case 200:
         return NextResponse.json(
           { message: res.message },
-          { status: res.code }
+          { status: res.code },
         );
 
       case 404:
@@ -30,7 +30,7 @@ export const POST = async (request: NextRequest) => {
       default:
         return NextResponse.json(
           { message: res.message },
-          { status: res.code }
+          { status: res.code },
         );
     }
   } catch (error) {
