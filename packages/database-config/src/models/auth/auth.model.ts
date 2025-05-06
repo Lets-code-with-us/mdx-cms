@@ -6,7 +6,7 @@ export class AuthModel {
   static async createNewUser(
     email: string,
     password: string,
-    organization: string
+    organization: string,
   ) {
     try {
       const findExistingUser = await (Auth as any).findOne({
@@ -61,7 +61,7 @@ export class AuthModel {
 
       const checkpassword = await checkPassword(
         password,
-        checkUserExist.password
+        checkUserExist.password,
       );
 
       if (checkpassword.code == 500) {
@@ -84,7 +84,7 @@ export class AuthModel {
           role: checkUserExist.role,
         },
         jwtSecret,
-        "12hr"
+        "12hr",
       );
 
       if (authToken.code === 500) {

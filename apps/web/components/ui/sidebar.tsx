@@ -37,7 +37,7 @@ const navigationItems = [
     href: "/manage",
     children: [
       { title: "Create New User", href: "/create" },
-      {title:"Share info",href:'/info'}
+      { title: "Share info", href: "/info" },
     ],
   },
   {
@@ -93,7 +93,7 @@ export function Sidebar({ className }: { className: string }) {
             active
               ? "bg-gray-100 text-blue-600"
               : "text-gray-700 hover:bg-gray-50 hover:text-blue-600",
-            mobile && "py-3"
+            mobile && "py-3",
           )}
         >
           <item.icon
@@ -101,7 +101,7 @@ export function Sidebar({ className }: { className: string }) {
               "h-5 w-5 flex-shrink-0",
               active
                 ? "text-blue-600"
-                : "text-gray-500 group-hover:text-blue-600"
+                : "text-gray-500 group-hover:text-blue-600",
             )}
           />
 
@@ -140,7 +140,7 @@ export function Sidebar({ className }: { className: string }) {
                   "block rounded-md px-3 py-2 text-sm font-medium",
                   isActive(child.href)
                     ? "bg-gray-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-blue-600",
                 )}
               >
                 {child.title}
@@ -157,7 +157,7 @@ export function Sidebar({ className }: { className: string }) {
     <div
       className={cn(
         "flex flex-col gap-y-4 justify-between min-h-svh",
-        mobile && "py-4"
+        mobile && "py-4",
       )}
     >
       <div className="px-3 py-2">
@@ -206,7 +206,7 @@ export function Sidebar({ className }: { className: string }) {
       <aside
         className={cn(
           "hidden lg:relative lg:inset-y-0 lg:z-10 lg:flex lg:w-64 lg:flex-col lg:border-r lg:bg-white",
-          className
+          className,
         )}
       >
         <SidebarContent />

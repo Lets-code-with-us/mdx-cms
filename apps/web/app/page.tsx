@@ -11,8 +11,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -39,12 +37,12 @@ export default function Home() {
             Documentation
           </Link>
           <Link href="/signin">
-          <Button size="sm" variant="outline" className="hidden md:flex mr-2">
-            Sign In
-          </Button>
+            <Button size="sm" variant="outline" className="hidden md:flex mr-2">
+              Sign In
+            </Button>
           </Link>
           <Link href="/getstarted">
-          <Button size="sm">Get Started</Button>
+            <Button size="sm">Get Started</Button>
           </Link>
         </div>
       </nav>

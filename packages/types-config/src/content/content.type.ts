@@ -6,7 +6,7 @@ export const checkContentType = (content: object) => {
     slug: z.string().max(40),
     content: z.string(),
     category: z.string().max(10),
-    published:z.boolean()
+    published: z.boolean(),
   });
   const res = contenttype.safeParse(content);
   if (!res.success) {

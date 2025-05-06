@@ -6,7 +6,7 @@ export class ContentModel {
     slug: string,
     content: string,
     category: string,
-    published: boolean
+    published: boolean,
   ) {
     try {
       const contetnTitleExists = await (Content as any).findOne({
@@ -48,7 +48,7 @@ export class ContentModel {
     slug: string,
     content: string,
     category: string,
-    published: boolean
+    published: boolean,
   ) {
     try {
       const contentTitleExists = await (Content as any).findById(id);
@@ -117,12 +117,11 @@ export class ContentModel {
           code: 200,
           message: content,
         };
-      }
-      else{
-        return{
-          code:402,
-          message:"Unpublished"
-        }
+      } else {
+        return {
+          code: 402,
+          message: "Unpublished",
+        };
       }
     } catch (error) {
       return {
