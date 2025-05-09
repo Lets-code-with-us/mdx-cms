@@ -10,16 +10,16 @@ export async function GET() {
     if (!result.success) {
       return NextResponse.json(
         { success: false, message: result.message },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    return NextResponse.json({message:result}, { status: 200 });
+    return NextResponse.json({ message: result }, { status: 200 });
   } catch (error) {
     console.error("Error getting categories:", error);
     return NextResponse.json(
       { success: false, message: "Failed to get categories" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

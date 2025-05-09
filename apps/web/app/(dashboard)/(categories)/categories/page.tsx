@@ -115,7 +115,9 @@ export default function CategoriesManager() {
     <Card className="w-full mx-auto shadow-md">
       <CardHeader>
         <Link href="/contents">
-          <Button className="bg-purple-500 mb-3 hover:bg-purple-600">Go Back</Button>
+          <Button className="bg-purple-500 mb-3 hover:bg-purple-600">
+            Go Back
+          </Button>
         </Link>
         <CardTitle className="text-xl font-bold">Categories Manager</CardTitle>
         <CardDescription>Create and manage your categories</CardDescription>

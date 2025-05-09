@@ -32,7 +32,7 @@ export default function ContentTable() {
   const filteredContent = data.message?.filter(
     (item: { title: string; slug: string }) =>
       item?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item?.slug.toLowerCase().includes(searchTerm.toLowerCase())
+      item?.slug.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Format date for display
@@ -160,7 +160,7 @@ export default function ContentTable() {
                       </div>
                     </TableCell>
                   </TableRow>
-                )
+                ),
               )
             ) : (
               <TableRow>

@@ -139,7 +139,7 @@ export class CategoryModel {
       const updatedCategory = await (Category as any).findByIdAndUpdate(
         id,
         { title },
-        { new: true }
+        { new: true },
       );
 
       if (!updatedCategory) {
