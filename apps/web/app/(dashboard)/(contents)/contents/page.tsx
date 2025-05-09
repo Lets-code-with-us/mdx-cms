@@ -29,10 +29,10 @@ export default function ContentTable() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter content based on search term
-  const filteredContent = data.filter(
-    (item) =>
+  const filteredContent = data.message?.filter(
+    (item: { title: string; slug: string }) =>
       item?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item?.slug.toLowerCase().includes(searchTerm.toLowerCase()),
+      item?.slug.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Format date for display
@@ -67,9 +67,11 @@ export default function ContentTable() {
         <h2 className="text-2xl font-bold tracking-tight">
           Content Management
         </h2>
-        <Button className="bg-blue-500 hover:bg-blue-600">
-          <Plus className="mr-2 h-4 w-4" /> Add New Category
-        </Button>
+        <Link href="/categories">
+          <Button className="bg-purple-500 hover:bg-purple-600">
+            <Plus className="mr-2 h-4 w-4" /> Add New Category
+          </Button>
+        </Link>
       </div>
 
       <div className="flex items-center justify-between">
@@ -99,58 +101,67 @@ export default function ContentTable() {
           </TableHeader>
           <TableBody>
             {filteredContent.length > 0 ? (
-              filteredContent.map((item) => (
-                <TableRow key={item.id} className="hover:bg-gray-50">
-                  <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell className="text-gray-500">{item.slug}</TableCell>
-                  <TableCell className="text-gray-500">
-                    {formatDate(item.createdAt)}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={item.published ? "default" : "outline"}
-                      className={
-                        item.published
-                          ? "bg-green-100 text-green-800 hover:bg-green-100"
-                          : "text-gray-500 hover:bg-gray-100"
-                      }
-                    >
-                      {item.published ? "Published" : "Draft"}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 w-8 p-0"
-                          >
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-36">
-                          <Link href={`/viewcontent/${item._id}`}>
-                            <DropdownMenuItem className="cursor-pointer flex items-center">
-                              <Eye className="mr-2 h-4 w-4" /> View
+              filteredContent.map(
+                (item: {
+                  _id: string;
+                  id: string;
+                  title: string;
+                  slug: string;
+                  createdAt: string;
+                  published: boolean;
+                }) => (
+                  <TableRow key={item.id} className="hover:bg-gray-50">
+                    <TableCell className="font-medium">{item.title}</TableCell>
+                    <TableCell className="text-gray-500">{item.slug}</TableCell>
+                    <TableCell className="text-gray-500">
+                      {formatDate(item.createdAt)}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={item.published ? "default" : "outline"}
+                        className={
+                          item.published
+                            ? "bg-green-100 text-green-800 hover:bg-green-100"
+                            : "text-gray-500 hover:bg-gray-100"
+                        }
+                      >
+                        {item.published ? "Published" : "Draft"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-8 w-8 p-0"
+                            >
+                              <span className="sr-only">Open menu</span>
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-36">
+                            <Link href={`/viewcontent/${item._id}`}>
+                              <DropdownMenuItem className="cursor-pointer flex items-center">
+                                <Eye className="mr-2 h-4 w-4" /> View
+                              </DropdownMenuItem>
+                            </Link>
+                            <Link href={`/updatecontent/${item._id}`}>
+                              <DropdownMenuItem className="cursor-pointer flex items-center">
+                                <Edit className="mr-2 h-4 w-4" /> Edit
+                              </DropdownMenuItem>
+                            </Link>
+                            <DropdownMenuItem className="cursor-pointer flex items-center text-red-600 focus:text-red-600">
+                              <Trash className="mr-2 h-4 w-4" /> Delete
                             </DropdownMenuItem>
-                          </Link>
-                          <Link href={`/updatecontent/${item._id}`}>
-                            <DropdownMenuItem className="cursor-pointer flex items-center">
-                              <Edit className="mr-2 h-4 w-4" /> Edit
-                            </DropdownMenuItem>
-                          </Link>
-                          <DropdownMenuItem className="cursor-pointer flex items-center text-red-600 focus:text-red-600">
-                            <Trash className="mr-2 h-4 w-4" /> Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                )
+              )
             ) : (
               <TableRow>
                 <TableCell colSpan={5} className="h-24 text-center">

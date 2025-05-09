@@ -13,9 +13,7 @@ export const useFetch = (url: string) => {
     setInfo((prev) => ({ ...prev, loading: true })); // Set loading at start
     try {
       const response = await axios.get(url);
-      const result = response?.data?.message?.message;
-      console.log(result);
-
+      const result = response?.data?.message;
       setInfo({ data: result, error: "", loading: false }); // set everything at once
     } catch (error: any) {
       setInfo({

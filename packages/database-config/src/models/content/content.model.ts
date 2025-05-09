@@ -112,7 +112,7 @@ export class ContentModel {
           message: "Not Found",
         };
       }
-      if (content.published === true) {
+      if (content) {
         return {
           code: 200,
           message: content,
@@ -133,10 +133,8 @@ export class ContentModel {
 
   static async getContents(type: string, query: string) {
     try {
-      if (type === "all") {
-        const content = await (Content as any).find({
-          published: true,
-        });
+      if (type === "all" && query === "all") {
+        const content = await (Content as any).find({});
         if (!content) {
           return {
             code: 404,

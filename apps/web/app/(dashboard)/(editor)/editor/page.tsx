@@ -1,12 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PenLine, FileText, Tag, Save } from "lucide-react";
+import { useFetch } from "@/hooks/useFetch";
+import Loading from "@/components/ui/loading";
+import Error from "@/components/ui/error";
 
 const EditorComp = dynamic(() => import("@/components/editorui/editor"), {
   ssr: false,
@@ -31,8 +34,16 @@ export default function MDXEditor() {
     content: "",
     category: "blogs",
   });
+  const [categories, setCategories] = useState([]);
+  const { data, error, loading } = useFetch("/api/v1/categories/categories");
 
-  const handleChange = (e: React.FormEventHandler) => {
+  useEffect(() => {
+    if (data && data?.data!) {
+      setCategories(data?.data);
+    }
+  }, [data]);
+
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setContent((prev) => ({
       ...prev,
@@ -40,11 +51,62 @@ export default function MDXEditor() {
     }));
   };
 
-  const handleSubmit = (e: React.ReactEventHandler) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Content submitted:", content);
-    // Add your save logic here
+
+    if (
+      !content.title ||
+      !content.slug ||
+      !content.content ||
+      !content.category
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/v1/posts/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(content),
+      });
+
+      if (res.ok) {
+        console.log("Post created successfully");
+        alert("Success");
+        window.location.href = "/contents";
+      } else {
+        if (res.status == 409) {
+          alert("Content title Already exist");
+        }
+        console.error("Failed to create post");
+      }
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
   };
+
+  const handleEditorChange = (e: any) => {
+    setContent({ ...content, content: e });
+  };
+
+  if (loading) {
+    return (
+      <div className="w-screen">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-screen">
+        <Error />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
@@ -113,9 +175,15 @@ export default function MDXEditor() {
                 className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select category</option>
-                <option value="blogs">Blogs</option>
-                <option value="tutorials">Tutorials</option>
-                <option value="news">News</option>
+                {categories.map((ele, index) => {
+                  return (
+                    <>
+                      <option key={index} value={ele.title}>
+                        {ele.title}
+                      </option>
+                    </>
+                  );
+                })}
               </select>
             </div>
 
@@ -133,7 +201,10 @@ export default function MDXEditor() {
                     </div>
                   }
                 >
-                  <EditorComp markdown={markdown} />
+                  <EditorComp
+                    onChange={handleEditorChange}
+                    markdown={markdown}
+                  />
                 </Suspense>
               </div>
             </div>

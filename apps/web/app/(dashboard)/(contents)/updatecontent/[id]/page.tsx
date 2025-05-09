@@ -1,38 +1,64 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PenLine, FileText, Tag, Save } from "lucide-react";
+import { PenLine, FileText, Tag, Save, MoveLeft } from "lucide-react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import axios from "axios";
 
+// Use dynamic import with loading priority
 const EditorComp = dynamic(() => import("@/components/editorui/editor"), {
   ssr: false,
+  loading: () => (
+    <div className="h-[400px] flex items-center justify-center bg-gray-50">
+      <div className="animate-pulse text-gray-400">Loading editor...</div>
+    </div>
+  ),
 });
 
-const markdown = `
-# Hello **world**!
-
-This is an example of Markdown content. You can:
-
-- Create lists
-- **Bold text**
-- *Italicize text*
-- [Add links](https://example.com)
-- And much more!
-`;
-
 export default function MDXEditor() {
+  const { id: slug } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState({
     title: "",
     slug: "",
     content: "",
-    category: "blogs",
+    category: "",
+    published: true,
   });
 
-  const handleChange = (e: React.FormEventHandler) => {
+  useEffect(() => {
+    if (slug) {
+      fetchContent(slug as string);
+    }
+  }, [slug]);
+
+  const fetchContent = async (id: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/v1/posts/posts/id/${id}`);
+      const data = await response.json();
+
+      if (data && data.message && data.message.message) {
+        // Make sure we're setting content properly
+        setContent(data.message.message);
+      } else {
+        console.error("Invalid data structure:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching content:", error);
+      alert("Failed to load content");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setContent((prev) => ({
       ...prev,
@@ -40,10 +66,27 @@ export default function MDXEditor() {
     }));
   };
 
-  const handleSubmit = (e: React.ReactEventHandler) => {
+  const handleEditorChange = (newContent: string) => {
+    setContent((prev) => ({
+      ...prev,
+      content: newContent,
+    }));
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Content submitted:", content);
-    // Add your save logic here
+    try {
+      const response = await axios.post("/api/v1/posts/update", {
+        id: slug,
+        ...content,
+      });
+      if (response.status == 200) {
+        alert("Updated");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Something went Wrong");
+    }
   };
 
   return (
@@ -69,7 +112,7 @@ export default function MDXEditor() {
                 <Input
                   id="title"
                   name="title"
-                  value={content.title}
+                  value={content.title || ""}
                   onChange={handleChange}
                   placeholder="Enter the blog title"
                   className="h-10 focus-visible:ring-blue-500"
@@ -88,7 +131,7 @@ export default function MDXEditor() {
                 <Input
                   id="slug"
                   name="slug"
-                  value={content.slug}
+                  value={content.slug || ""}
                   onChange={handleChange}
                   placeholder="your-blog-post-slug"
                   className="h-10 focus-visible:ring-blue-500"
@@ -108,7 +151,7 @@ export default function MDXEditor() {
               <select
                 id="category"
                 name="category"
-                value={content.category}
+                value={content.category || ""}
                 onChange={handleChange}
                 className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -120,31 +163,54 @@ export default function MDXEditor() {
             </div>
 
             <div className="space-y-2">
+              <Label
+                htmlFor="published"
+                className="text-sm font-medium flex items-center gap-2"
+              >
+                <Tag className="h-4 w-4 text-gray-500" />
+                Published
+              </Label>
+              <select
+                id="published"
+                name="published"
+                value={content.published || false}
+                onChange={handleChange}
+                className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select category</option>
+                <option value={`true`}>Published</option>
+                <option value={`false`}>UnPublished</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="editor" className="text-sm font-medium">
                 Content
               </Label>
               <div className="border border-gray-200 rounded-lg overflow-hidden min-h-[400px]">
-                <Suspense
-                  fallback={
-                    <div className="h-[400px] flex items-center justify-center bg-gray-50">
-                      <div className="animate-pulse text-gray-400">
-                        Loading editor...
-                      </div>
-                    </div>
-                  }
-                >
-                  <EditorComp markdown={markdown} />
-                </Suspense>
+                {!isLoading && (
+                  <EditorComp
+                    markdown={content.content || ""}
+                    onChange={handleEditorChange}
+                    key={`editor-${slug}-${isLoading}`}
+                  />
+                )}
               </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-4">
+              <Link href="/contents">
+                <Button className="bg-blue-500 hover:bg-blue-600 gap-2 text-white px-4 py-2 rounded-md">
+                  <MoveLeft className="h-4 w-4" />
+                  Back
+                </Button>
+              </Link>
               <Button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 gap-2 text-white px-4 py-2 rounded-md"
               >
                 <Save className="h-4 w-4" />
-                Save Post
+                Update Post
               </Button>
             </div>
           </form>

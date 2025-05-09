@@ -20,7 +20,7 @@ const contentSchema = new mongoose.Schema(
     },
     published: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   { timestamps: true },

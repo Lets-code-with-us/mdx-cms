@@ -9,7 +9,7 @@ export const GET = async (
   context: { params: { post: string[] } },
 ) => {
   try {
-    const post = context.params.post;
+    const {post} = await context.params;
 
     // All posts
     if (post[0] === "posts" && !post[1]) {

@@ -258,7 +258,7 @@ const Editor: FC<EditorProps> = ({
       <MDXEditor
         ref={actualEditorRef}
         markdown={markdown}
-        onChange={onChange}
+        onChange={(e) => onChange?.(e)}
         placeholder={placeholder}
         readOnly={readOnly}
         autoFocus={autofocus}
