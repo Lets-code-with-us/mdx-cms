@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const useFetch = (url: string) => {
   const [info, setInfo] = useState({
-    data: [],
+    data: null,
     error: "",
     loading: true,
   });

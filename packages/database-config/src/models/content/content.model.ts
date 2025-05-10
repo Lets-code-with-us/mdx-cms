@@ -1,4 +1,4 @@
-import { Content } from "../../schemas/content.schema.js";
+import { Content } from "../../schemas/content.schema";
 
 export class ContentModel {
   static async createContent(

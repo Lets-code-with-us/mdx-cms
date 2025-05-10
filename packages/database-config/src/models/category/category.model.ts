@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Category } from "../../schemas/category.schema.js";
+import { Category } from "../../schemas/category.schema";
 
 export class CategoryModel {
   /**

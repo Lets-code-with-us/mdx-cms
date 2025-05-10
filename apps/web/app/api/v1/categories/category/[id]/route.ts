@@ -3,19 +3,19 @@ import { DB_CONNECTION } from "@repo/database-config/db-config";
 import { CategoryModel } from "@repo/database-config/models/category";
 
 DB_CONNECTION(process.env.DB_URI!);
-
-export async function GET(
+export const  GET = async(
   request: NextRequest,
-  { params }: { params: { id: string } },
-) {
+  { params }: { params: Promise<{ id: string }> }
+) =>{
   try {
-    const id = params.id;
+    const {id} = await  params;
+
     const result = await CategoryModel.getCategory(id);
 
     if (!result.success) {
       return NextResponse.json(
         { success: false, message: result.message },
-        { status: result.message === "Category not found" ? 404 : 400 },
+        { status: result.message === "Category not found" ? 404 : 400 }
       );
     }
 
@@ -24,7 +24,7 @@ export async function GET(
     console.error("Error getting category:", error);
     return NextResponse.json(
       { success: false, message: "Failed to get category" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -32,7 +32,7 @@ export async function GET(
 // POST handles both update and delete operations
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
@@ -41,7 +41,7 @@ export async function POST(
     if (!body || !body.action) {
       return NextResponse.json(
         { success: false, message: "Action is required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -49,7 +49,7 @@ export async function POST(
       if (!body.title || typeof body.title !== "string") {
         return NextResponse.json(
           { success: false, message: "Title is required and must be a string" },
-          { status: 400 },
+          { status: 400 }
         );
       }
 
@@ -58,7 +58,7 @@ export async function POST(
       if (!result.success) {
         return NextResponse.json(
           { success: false, message: result.message },
-          { status: result.message === "Category not found" ? 404 : 400 },
+          { status: result.message === "Category not found" ? 404 : 400 }
         );
       }
 
@@ -69,7 +69,7 @@ export async function POST(
       if (!result.success) {
         return NextResponse.json(
           { success: false, message: result.message },
-          { status: result.message === "Category not found" ? 404 : 400 },
+          { status: result.message === "Category not found" ? 404 : 400 }
         );
       }
 
@@ -77,14 +77,14 @@ export async function POST(
     } else {
       return NextResponse.json(
         { success: false, message: "Invalid action" },
-        { status: 400 },
+        { status: 400 }
       );
     }
   } catch (error) {
     console.error("Error in POST handler:", error);
     return NextResponse.json(
       { success: false, message: "Failed to process request" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

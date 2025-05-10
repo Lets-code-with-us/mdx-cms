@@ -10,6 +10,7 @@ import { PenLine, FileText, Tag, Save, MoveLeft } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import Loading from "@/components/ui/loading";
 
 // Use dynamic import with loading priority
 const EditorComp = dynamic(() => import("@/components/editorui/editor"), {
@@ -29,7 +30,7 @@ export default function MDXEditor() {
     slug: "",
     content: "",
     category: "",
-    published: true,
+    published: "",
   });
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function MDXEditor() {
       if (data && data.message && data.message.message) {
         // Make sure we're setting content properly
         setContent(data.message.message);
+        setIsLoading(false);
       } else {
         console.error("Invalid data structure:", data);
       }
@@ -74,6 +76,7 @@ export default function MDXEditor() {
   };
 
   const handleSubmit = async (e: any) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const response = await axios.post("/api/v1/posts/update", {
@@ -82,12 +85,23 @@ export default function MDXEditor() {
       });
       if (response.status == 200) {
         alert("Updated");
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
       alert("Something went Wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="w-screen">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
@@ -173,7 +187,7 @@ export default function MDXEditor() {
               <select
                 id="published"
                 name="published"
-                value={content.published || false}
+                value={content.published || "false"}
                 onChange={handleChange}
                 className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -210,7 +224,7 @@ export default function MDXEditor() {
                 className="bg-blue-500 hover:bg-blue-600 gap-2 text-white px-4 py-2 rounded-md"
               >
                 <Save className="h-4 w-4" />
-                Update Post
+                {isLoading ? "Updating.. " : "Update Post"}
               </Button>
             </div>
           </form>

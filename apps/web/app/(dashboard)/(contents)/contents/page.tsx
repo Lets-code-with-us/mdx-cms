@@ -21,18 +21,22 @@ import { Input } from "@/components/ui/input";
 import { MoreHorizontal, Edit, Trash, Eye, Search, Plus } from "lucide-react";
 import { useFetch } from "@/hooks/useFetch";
 import Loading from "@/components/ui/loading";
-import Error from "@/components/ui/error";
+import Error  from "@/components/ui/error";
 import Link from "next/link";
 
 export default function ContentTable() {
   const { data, error, loading } = useFetch("/api/v1/posts/posts");
   const [searchTerm, setSearchTerm] = useState("");
 
+  if (!data) {
+    return null
+  }
+
   // Filter content based on search term
   const filteredContent = data.message?.filter(
     (item: { title: string; slug: string }) =>
       item?.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item?.slug.toLowerCase().includes(searchTerm.toLowerCase()),
+      item?.slug.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Format date for display
@@ -160,7 +164,7 @@ export default function ContentTable() {
                       </div>
                     </TableCell>
                   </TableRow>
-                ),
+                )
               )
             ) : (
               <TableRow>

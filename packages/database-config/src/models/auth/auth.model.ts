@@ -1,6 +1,6 @@
-import { Auth } from "../../schemas/auth.schema.js";
-import { hashedPassword, checkPassword } from "../../utils/hashingPassword.js";
-import { genrateJWTToken } from "../../utils/jwtTokengenerater.js";
+import { Auth } from "../../schemas/auth.schema";
+import { hashedPassword, checkPassword } from "../../utils/hashingPassword";
+
 
 export class AuthModel {
   static async createNewUser(
@@ -78,25 +78,11 @@ export class AuthModel {
         };
       }
 
-      const authToken = await genrateJWTToken(
-        {
-          id: checkUserExist._id,
-          role: checkUserExist.role,
-        },
-        jwtSecret,
-        "12hr",
-      );
-
-      if (authToken.code === 500) {
-        return {
-          code: authToken.code,
-          message: authToken.message,
-        };
-      }
+    
 
       return {
-        code: authToken.code,
-        message: authToken.payload,
+        code: 200,
+        message: "auth",
       };
     } catch (error) {
       return {

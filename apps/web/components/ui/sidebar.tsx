@@ -10,7 +10,6 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   LayoutDashboard,
   Settings,
-  Users,
   HelpCircle,
   Menu,
   ChevronDown,

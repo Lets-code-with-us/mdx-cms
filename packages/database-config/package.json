@@ -9,9 +9,12 @@
     "./models/content":"./src/models/content/content.model.ts",
     "./models/category":"./src/models/category/category.model.ts"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -b"
+    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
