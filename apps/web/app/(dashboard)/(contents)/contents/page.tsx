@@ -8,20 +8,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "../../../../components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from "../../../../components/ui/dropdown-menu";
+import { Badge } from "../../../../components/ui/badge";
+import { Button } from "../../../../components/ui/button";
+import { Input } from "../../../../components/ui/input";
 import { MoreHorizontal, Edit, Trash, Eye, Search, Plus } from "lucide-react";
-import { useFetch } from "@/hooks/useFetch";
-import Loading from "@/components/ui/loading";
-import Error from "@/components/ui/error";
+import { useFetch } from "../../../../hooks/useFetch";
+import Loading from "../../../../components/ui/loading";
+import Error from "../../../../components/ui/error";
 import Link from "next/link";
 
 export default function ContentTable() {

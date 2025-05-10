@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { PlusCircle } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "../../../../components/ui/input";
+import { Button } from "../../../../components/ui/button";
+import { Badge } from "../../../../components/ui/badge";
 import {
   Card,
   CardHeader,
@@ -12,8 +12,8 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { useFetch } from "@/hooks/useFetch";
-import Loading from "@/components/ui/loading";
-import Error from "@/components/ui/error";
+import Loading from "../../../../components/ui/loading";
+import Error from "../../../../components/ui/error";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
