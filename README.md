@@ -93,6 +93,12 @@ docker run -p 3000:3000 -e DB_URI=DB URL my-web-app
 
 ```
 
+6. Pull the Docker image
+
+```
+docker pull letscodeteam/mdx-cms
+```
+
 This will start all applications in development mode using Turborepo.
 
 ## 📝 Usage
