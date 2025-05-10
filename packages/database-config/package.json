@@ -17,7 +17,6 @@
     "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@types/jsonwebtoken": "^9.0.9",
     "typescript": "^5.8.3"
   },
@@ -26,6 +25,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@repo/typescript-config": "workspace:*",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.1", 

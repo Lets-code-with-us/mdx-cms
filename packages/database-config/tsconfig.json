@@ -1,34 +1,22 @@
-// {
-//   "extends": "@repo/typescript-config/base.json",
-//   "compilerOptions": {
-//     "rootDir": "./src",
-//     "outDir": "./dist",
-//     "allowImportingTsExtensions": true,
-//     "noEmit": true,
-//     "module": "esnext", // required
-//     "moduleResolution": "bundler" // or "node16", not "node"
-//   },
-
-//   "include": ["src"],
-//   "exclude": ["dist", "node_modules"]
-// }
-
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "lib": ["ES2020", "DOM"],
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
-    "rootDir": "src",
-    "outDir": "dist",
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
+
+    "rootDir": "./src",
+    "outDir": "./dist",
+
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "strict": true,
-    "types": ["node"]
+
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    "types": ["node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["dist", "node_modules"]
 }
