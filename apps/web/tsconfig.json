@@ -1,6 +1,8 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "skipLibCheck": true,
+    "types": [],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
