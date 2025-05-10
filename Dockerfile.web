@@ -1,0 +1,43 @@
+# 1. Base image
+FROM node:20-slim
+
+# Set working directory
+WORKDIR /app
+
+# Enable and prepare pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Accept build-time arguments
+ARG DB_URI
+ARG NODE_ENV
+
+# Set them as environment variables (optional)
+ENV DB_URI=${DB_URI}
+ENV NODE_ENV=${NODE_ENV}
+
+# Copy all files
+COPY . .
+
+# Install dependencies
+RUN pnpm install 
+
+
+
+
+
+# Set working directory to the web app
+WORKDIR /app/apps/web
+
+
+# Build the app using turbo
+RUN pnpm  build
+
+# Expose the Next.js default port
+EXPOSE 3000
+
+# Set runtime environment variables again (optional)
+ARG DB_URI
+ENV DB_URI=${DB_URI}
+
+# Start the app
+CMD ["pnpm", "start"]

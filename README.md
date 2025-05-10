@@ -34,6 +34,7 @@ lets-code/
 
 - **Frontend**: Next.js, React
 - **Backend**: Next.js API routes
+- **Containization**: Docker
 - **Database**: MongoDB
 - **Documentation**: Astro
 - **Build System**: Turborepo
@@ -76,6 +77,21 @@ cp apps/admin/.env.example apps/admin/.env.local
 
 ```bash
 pnpm dev
+```
+
+5. Run with Docker
+
+```
+docker build \
+  --build-arg "DB_URI=DB URL" \
+  --build-arg "NODE_ENV=production" \
+  -f Dockerfile.web \
+  -t my-web-app .
+
+
+
+  docker run -p 3000:3000 -e DB_URI=DB URL my-web-app
+
 ```
 
 This will start all applications in development mode using Turborepo.
