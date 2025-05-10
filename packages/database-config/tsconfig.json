@@ -12,8 +12,6 @@
 
     "module": "esnext",
     "moduleResolution": "bundler",
-
-    "types": ["node"],
     "esModuleInterop": true,
     "skipLibCheck": true
   },
