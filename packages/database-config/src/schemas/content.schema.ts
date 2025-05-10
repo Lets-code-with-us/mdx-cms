@@ -26,7 +26,8 @@ const contentSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-export const Content = mongoose.models.Content || mongoose.model("Content", contentSchema);
+export const Content =
+  mongoose.models.Content || mongoose.model("Content", contentSchema);
 export type ContentDocument = mongoose.Document & {
   title: string;
   slug: string;

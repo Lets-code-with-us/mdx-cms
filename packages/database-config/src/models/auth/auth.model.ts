@@ -1,7 +1,6 @@
 import { Auth } from "../../schemas/auth.schema";
 import { hashedPassword, checkPassword } from "../../utils/hashingPassword";
 
-
 export class AuthModel {
   static async createNewUser(
     email: string,
@@ -77,8 +76,6 @@ export class AuthModel {
           message: "Invalid Password",
         };
       }
-
-    
 
       return {
         code: 200,

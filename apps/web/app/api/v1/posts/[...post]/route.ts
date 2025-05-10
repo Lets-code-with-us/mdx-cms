@@ -6,7 +6,7 @@ DB_CONNECTION(process.env.DB_URI!);
 
 export const GET = async (
   _: Request,
-  context: { params:  Promise<{ post: string }> },
+  context: { params: Promise<{ post: string }> },
 ) => {
   try {
     const { post } = await context.params;
