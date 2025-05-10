@@ -5,6 +5,9 @@
     "paths": {
       "@/*": ["./*"]
     },
+    "isolatedModules": true,
+    "composite": true,
+    "incremental": true,
     "plugins": [
       {
         "name": "next"
