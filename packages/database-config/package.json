@@ -6,8 +6,8 @@
   "exports": {
     "./db-config": "./src/index.ts",
     "./models/auth": "./src/models/auth/auth.model.ts",
-    "./models/content":"./src/models/content/content.model.ts",
-    "./models/category":"./src/models/category/category.model.ts"
+    "./models/content": "./src/models/content/content.model.ts",
+    "./models/category": "./src/models/category/category.model.ts"
   },
   "publishConfig": {
     "access": "public"
@@ -18,7 +18,8 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/jsonwebtoken": "^9.0.9"
+    "@types/jsonwebtoken": "^9.0.9",
+    "typescript": "^5.8.3"
   },
   "keywords": [],
   "author": "",
