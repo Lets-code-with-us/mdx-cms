@@ -1,8 +1,9 @@
+import React from "react";
 import { GalleryVerticalEnd } from "lucide-react";
 
 import { LoginForm } from "../../../components/ui/login-form";
 
-export default function LoginPage() {
+const LoginPage: React.FC = () => {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -30,3 +31,6 @@ export default function LoginPage() {
     </div>
   );
 }
+
+
+export default LoginPage;
