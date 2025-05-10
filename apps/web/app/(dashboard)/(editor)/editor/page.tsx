@@ -5,15 +5,23 @@ import { Suspense, useState, useEffect } from "react";
 import { Input } from "../../../../components/ui/input";
 import { Label } from "../../../../components/ui/label";
 import { Button } from "../../../../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../../components/ui/card";
 import { PenLine, FileText, Tag, Save } from "lucide-react";
 import { useFetch } from "../../../../hooks/useFetch";
 import Loading from "../../../../components/ui/loading";
 import Error from "../../../../components/ui/error";
 
-const EditorComp = dynamic(() => import("../../../../components/editorui/editor"), {
-  ssr: false,
-});
+const EditorComp = dynamic(
+  () => import("../../../../components/editorui/editor"),
+  {
+    ssr: false,
+  },
+);
 
 const markdown = `
 # Hello **world**!

@@ -10,8 +10,8 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { useFetch } from "@/hooks/useFetch";
+} from "../../../../components/ui/card";
+import { useFetch } from "../../../../hooks/useFetch";
 import Loading from "../../../../components/ui/loading";
 import Error from "../../../../components/ui/error";
 import axios from "axios";

@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import { Input } from "../../../../../components/ui/input";
 import { Label } from "../../../../../components/ui/label";
 import { Button } from "../../../../../components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../../../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../../../components/ui/card";
 import { PenLine, FileText, Tag, Save, MoveLeft } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
@@ -13,14 +18,17 @@ import axios from "axios";
 import Loading from "../../../../../components/ui/loading";
 
 // Use dynamic import with loading priority
-const EditorComp = dynamic(() => import("../../../../../components/editorui/editor"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[400px] flex items-center justify-center bg-gray-50">
-      <div className="animate-pulse text-gray-400">Loading editor...</div>
-    </div>
-  ),
-});
+const EditorComp = dynamic(
+  () => import("../../../../../components/editorui/editor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] flex items-center justify-center bg-gray-50">
+        <div className="animate-pulse text-gray-400">Loading editor...</div>
+      </div>
+    ),
+  },
+);
 
 export default function MDXEditor() {
   const { id: slug } = useParams();
