@@ -108,6 +108,9 @@ importers:
       tw-animate-css:
         specifier: ^1.2.8
         version: 1.2.8
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -124,9 +127,6 @@ importers:
       eslint:
         specifier: ^9.24.0
         version: 9.24.0(jiti@2.4.2)
-      typescript:
-        specifier: 5.8.2
-        version: 5.8.2
 
   packages/database-config:
     dependencies:
