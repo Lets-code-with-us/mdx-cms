@@ -89,8 +89,7 @@ docker build \
   -t my-web-app .
 
 
-
-  docker run -p 3000:3000 -e DB_URI=DB URL my-web-app
+docker run -p 3000:3000 -e DB_URI=DB URL my-web-app
 
 ```
 
