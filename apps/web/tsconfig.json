@@ -8,7 +8,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*":["./*"]
+      "@/*":[".*"]
     }
   },
   "include": [
@@ -17,7 +17,7 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts"
-, "components/ui", "lib"  ],
+, "components/*", "lib"  ],
   "exclude": [
     "node_modules"
   ]
