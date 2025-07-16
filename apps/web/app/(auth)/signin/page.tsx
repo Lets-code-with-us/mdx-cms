@@ -23,11 +23,11 @@ const LoginPage: React.FC = () => {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <img
-          src="/placeholder.svg"
+          src="/Signin_Image.png"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
-      </div>
+      </div> 
     </div>
   );
 };

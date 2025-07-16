@@ -187,6 +187,38 @@ export default function Home() {
               </CardContent>
             </Card>
           </div>
+
+
+          {/* Payment Section */}
+          <section className="bg-white py-20 px-6 md:px-8 rounded-xl shadow-md my-10 max-w-6xl mx-auto">
+
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+              {/* Left side: Subscribe button */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">Upgrade to Premium</h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Get full access for just <span className="font-semibold">$5/month</span>
+                </p>
+                <button className="bg-black hover:bg-gray-800 text-white text-lg font-medium px-6 py-3 rounded-md shadow">
+                  Subscribe
+                </button>
+              </div>
+
+              {/* Right side: Benefits */}
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Benefits of Premium</h3>
+                <ul className="space-y-3 text-gray-700 text-sm">
+                  <li>✓ Full access to all MDX features</li>
+                  <li>✓ Create dynamic content with Markdown + JSX</li>
+                  <li>✓ Git-based version control</li>
+                  <li>✓ SEO optimization tools</li>
+                  <li>✓ Early access to new features</li>
+                  <li>✓ Premium support & updates</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
         </div>
       </section>
 
